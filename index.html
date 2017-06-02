@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
+
+    <!--For some reason required to make map visible -->
+    <style>
+      #map {float:right;height: 100%;width:60%;}
+      html, body {height: 100%;margin: 0;padding: 0;}
+    </style>
+
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="assets/javascript/javascript.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAigs7_VbK1kQdAsKuCGjsHcusp6y-ptLA&callback=initMap">
+    </script>
+  </body>
+</html>
