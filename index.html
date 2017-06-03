@@ -4,21 +4,96 @@
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> 
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
-
-    <!--For some reason required to make map visible -->
-    <style>
-      #map {float:right;height: 100%;width:60%;}
-      html, body {height: 100%;margin: 0;padding: 0;}
-    </style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
   </head>
   <body>
-    <div id="map"></div>
-    <script src="assets/javascript/javascript.js">
+
+	<div class="columns is-gapless">
+	  
+	  <div class="column is-one-third is-primary">
+        
+        <div class="block">
+          <a class="button is-primary">
+            Filter
+          </a>
+          <a class="button">
+            Filter
+          </a>
+          <a class="button is-danger">
+            Filter
+          </a>
+          <a class="button is-info">
+            Filter
+          </a>
+        </div>
+		
+		<div class="results">
+		    <article class="media">
+			  <div class="media-left">
+			    <figure class="image is-64x64">
+			      <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+			    </figure>
+			  </div>
+			  <div class="media-content">
+			    <div class="content">
+			      <p>
+			        <strong>Poke Restaurant</strong> <small>Link to website</small>
+		          <br>
+		            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+			      </p>
+			    </div>
+			  </div>
+			</article>
+
+			<article class="media">
+			  <div class="media-left">
+			    <figure class="image is-64x64">
+			      <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+			    </figure>
+			  </div>
+			  <div class="media-content">
+			    <div class="content">
+			      <p>
+			        <strong>Poke Restaurant</strong> <small>Link to website</small>
+		          <br>
+		            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+			      </p>
+			    </div>
+			  </div>
+			</article>
+
+			<article class="media">
+			  <div class="media-left">
+			    <figure class="image is-64x64">
+			      <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+			    </figure>
+			  </div>
+			  <div class="media-content">
+			    <div class="content">
+			      <p>
+			        <strong>Poke Restaurant</strong> <small>Link to website</small>
+		          <br>
+		            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+			      </p>
+			    </div>
+			  </div>
+			</article>
+		</div>
+
+      </div>
+	  
+	  <div class="column is-two-thirds">
+        <div id="map"></div>
+	  </div>
+
+	</div>
+    
+
+    <script type="text/javascript" src="assets/javascript/javascript.js">
     </script>
+    
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAigs7_VbK1kQdAsKuCGjsHcusp6y-ptLA&callback=initMap">
     </script>
