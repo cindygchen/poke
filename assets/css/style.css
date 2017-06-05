@@ -1,0 +1,23 @@
+/*For some reason required to make map visible*/
+#map {
+	height: 1000px;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.block {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 20px;
+}
+
+.results {
+	/*display: flex;*/
+	/*flex-direction: row;*/
+	/*justify-content: space-around;*/
+	margin-left: 10px;
+}
