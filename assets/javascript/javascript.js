@@ -48,19 +48,19 @@ var map, infoWindow;
 // Zumato Seach by Name, returns address, lat, long, and name 
 //
 //--------------------------------------------------------------
-var searchQuery = "poke"
+var searchQuery = "poke";
 var passArray = [];
 
 function attachToPin(name, lat, long) {
-    this.name = name
-    this.lat = lat
-    this.long = long
+    this.name = name;
+    this.lat = lat;
+    this.long = long;
 }
 
 $.ajax({
     url: "https://developers.zomato.com/api/v2.1/search?entity_id=302&entity_type=city&q=" + searchQuery + "&start=0&count=5",
     beforeSend: function(request) {
-        request.setRequestHeader("user-key", "4131e850ec76a23e63ba6bbf9570ed93")
+        request.setRequestHeader("user-key", "4131e850ec76a23e63ba6bbf9570ed93");
     }
 }).done(function(response) {
     var name = [];
@@ -69,16 +69,16 @@ $.ajax({
     var tempArray = [];
     var lat;
     var long;
-    var tempCoord
+    var tempCoord;
 
-    console.log(response)
-    console.log(response.restaurants)
+    console.log(response);
+    console.log(response.restaurants);
     for (let value of response.restaurants) {
         var eachName = value.restaurant.name
         console.log(eachName);
-        name.push(eachName)
-        console.log(name)
-        var eachAddress = value.restaurant.location.address
+        name.push(eachName);
+        console.log(name);
+        var eachAddress = value.restaurant.location.address;
         address.push(eachAddress);
     }
 
@@ -89,30 +89,30 @@ $.ajax({
             method: "GET"
         }).done(function(response) {
             for (let value of response.results) {
-                console.log(value.geometry.location)
-                lat = value.geometry.location.lat
-                long = value.geometry.location.lng
-                tempCoord = [lat, long]
-                tempArray.push(tempCoord)
+                console.log(value.geometry.location);
+                lat = value.geometry.location.lat;
+                long = value.geometry.location.lng;
+                tempCoord = [lat, long];
+                tempArray.push(tempCoord);
             }
-            console.log(tempArray)
+            console.log(tempArray);
 
         }).done(function() {
           if (tempArray.length !== 5 ){
-            return 
+            return;
           }
-            console.log(name)
-            console.log(tempArray)
+            console.log(name);
+            console.log(tempArray);
             for (i = 0; i < name.length; i++) {
-                var mapPinAddressAndName = new attachToPin(name, lat, long)
-                mapPinAddressAndName.name = name[i]
-                mapPinAddressAndName.lat = tempArray[i][0]
-                mapPinAddressAndName.long = tempArray[i][1]
-                passArray.push(mapPinAddressAndName)
+                var mapPinAddressAndName = new attachToPin(name, lat, long);
+                mapPinAddressAndName.name = name[i];
+                mapPinAddressAndName.lat = tempArray[i][0];
+                mapPinAddressAndName.long = tempArray[i][1];
+                passArray.push(mapPinAddressAndName);
             }
         })
     }
 
 
 })
-            console.log(passArray)
+            console.log(passArray);
