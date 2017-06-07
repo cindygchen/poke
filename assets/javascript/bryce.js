@@ -8,18 +8,24 @@ $("#day-button").on("click", function() {
 $("#night-button").on("click", function() {
 	//showNightOptions	
 });
-$("#other-button")on("click", function() {
+$("#other-button").on("click", function() {
 	//showOtherOptions	
 });
+
+// Collect information based on which filter buttons 
+$(".all-filter-buttons").on("click", function() {
+	this.addClass("is-active");
+	
+});
+
 
 
 // When user completes splash page navigation/input, display results and map
 $(".placeholder-button").on("click", function() {
-	//showResults	
-});
-$(".placeholder-button").on("click", function() {
+	//showResults
 	//showMapTags	
 });
+
 
 
 // When you click on a result, it expands to show more details
