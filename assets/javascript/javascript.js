@@ -1,4 +1,9 @@
 var map, infoWindow;
+var markers = [];
+var searchpin=[];
+var searchlat;
+var searchlng;
+var markerArray=[];
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: {lat: 32.8800604, lng: -117.2340135},
@@ -8,9 +13,6 @@ var map, infoWindow;
         infoWindow = new google.maps.InfoWindow;
 
         //markers
-
-//
-
         var iconBase = 'assets/images/icons/';
         var icons = {
           Hiking: {
@@ -31,7 +33,6 @@ var map, infoWindow;
           Club: {
             icon: iconBase + 'disco-ball.svg'
           }
-
         };
 
         var features = [
@@ -56,7 +57,6 @@ var map, infoWindow;
             address: "15519 Thornbush Rd, Ramona, CA 92065",
             type: 'Hiking'
           }, 
-
           {
             name: 'La Jolla',
             position: new google.maps.LatLng(32.838456, -117.271468),
@@ -135,7 +135,6 @@ var map, infoWindow;
             address: "1921 Bacon St, San Diego, CA 92107",
             type: 'Bar'
           },
-
             {
             name: 'Ballast Point',
             position: new google.maps.LatLng(32.888162, -117.158014),
@@ -162,7 +161,6 @@ var map, infoWindow;
             address: "1205 Knoxville St, San Diego, CA 92110",
             type: 'Breweries'
           },
-
         {
             name: 'Oxford SD',
             position: new google.maps.LatLng(32.709914, -117.160134),
@@ -185,24 +183,131 @@ var map, infoWindow;
             type: 'Club'
           }
         ];
+      
+      $(".hiking").on('click', function(){
+        forclicks("Hiking")
+      });
+      $(".restaurant").on('click', function(){
+        forclicks("Restaurant")
+      });
+      $(".beach").on('click', function(){
+        forclicks("Beach");
+      });
+      $(".farmer").on('click', function(){
+        forclicks("FarmersMarket");
+      });
+      $(".bar").on('click', function(){
+        forclicks("Bar");
+      });
+      $(".brewery").on('click', function(){
+        forclicks("Breweries");
+      });
+      $(".club").on('click', function(){
+        forclicks("Club");
+      });
 
-        // Create markers.
-        features.forEach(function(feature) {
-          var marker = new google.maps.Marker({
-            position: feature.position,
+      map.addListener('click', function(event){
+        
+        radiusSearch(event.latLng);
+        console.log(event.latLng.lat() + " " + event.latLng.lng());
+        searchlat = event.latLng.lat();
+        searchlng = event.latLng.lng();
+      });
+
+      function forclicks(args){
+          clearMarkers();
+          var temp =[];
+          markers =[];
+          for(var i = 0; i < features.length; i++){
+          if(features[i].type == args){
+            console.log("sand");
+            temp.push(features[i]);
+            console.log(temp);
+          };}
+         markers = temp;
+          
+          makemarks();
+          console.log(markers);
+      };
+
+      function makemarks(){
+        for(var i = 0; i < markers.length; i++){
+        var marker = new google.maps.Marker({
+            position: markers[i].position,
             icon: {
-                url: icons[feature.type].icon,
+                url: icons[markers[i].type].icon,
                 scaledSize: new google.maps.Size(100,100),
                 strokeWeight: 100,
                 strokeColor: 'black'
-            },
-            map: map
-          });
+                },
+                map: map
+              });
+        markerArray.push(marker);
+        }
+      }
+
+// searches local areas for activities using google places api         //
+//     var query = "hiking"
+//     function placeAddressNameAndPicture(name, lat, lng, photoID, photo) {
+//       this.name = name;
+//       this.lat = lat;
+//       this.lng = lng;
+//       this.photoID = photoID
+//       this.photo = photo
+//     }
+
+// $.ajax({
+//   url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
+// }).done(function(response){
+//   var nameArray =  [];
+//   var photoIDArray = [];
+//   var coordArray = [];
+//   var coord = [];
+//   var lat;
+//   var lng;
+//   var photoID;
+//   var name;
+//   var items = response.results
+//   console.log(items[0].photos[0].photo_reference)
+//   for (let value of items) {
+//     lat = value.geometry.location.lat 
+//     lng = value.geometry.location.lng
+//     photoID = value.photos[0].photo_reference
+//     name = value.name 
+//     coord = [lat,lng]
+//     nameArray.push(name)
+//     photoIDArray.push(photoID)
+//     coordArray.push(coord)
+//   }
+//   console.log(nameArray)
+//   console.log(photoIDArray)
+//   console.log(coordArray)
+// })
+//         //
+//       });
+
+      function radiusSearch(location){
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
         });
-      
+        searchpin.push(marker);
+      };
+
+      function setMapOnAll(map){
+        for(var i = 0; i < markerArray.length; i++){
+          markerArray[i].setMap(map);
+        }
+      }
+
+      function clearMarkers(){
+        setMapOnAll(null);
+      }
+
+      function showMarkers(){
+        setMapOnAll(map);
+      }
       //
-
-
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -231,77 +336,78 @@ var map, infoWindow;
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+    
 
 //--------------------------------------------------------------
 //
 // Zumato Seach by Name, returns address, lat, long, and name 
 //
 //--------------------------------------------------------------
-var searchQuery = "poke";
-var passArray = [];
+// var searchQuery = "poke";
+// var passArray = [];
 
-function attachToPin(name, lat, long) {
-    this.name = name;
-    this.lat = lat;
-    this.long = long;
-}
+// function attachToPin(name, lat, long) {
+//     this.name = name;
+//     this.lat = lat;
+//     this.long = long;
+// }
 
-$.ajax({
-    url: "https://developers.zomato.com/api/v2.1/search?entity_id=302&entity_type=city&q=" + searchQuery + "&start=0&count=5",
-    beforeSend: function(request) {
-        request.setRequestHeader("user-key", "4131e850ec76a23e63ba6bbf9570ed93");
-    }
-}).done(function(response) {
-    var name = [];
-    var address = [];
-    var coord = [];
-    var tempArray = [];
-    var lat;
-    var long;
-    var tempCoord;
+// $.ajax({
+//     url: "https://developers.zomato.com/api/v2.1/search?entity_id=302&entity_type=city&q=" + searchQuery + "&start=0&count=5",
+//     beforeSend: function(request) {
+//         request.setRequestHeader("user-key", "4131e850ec76a23e63ba6bbf9570ed93");
+//     }
+// }).done(function(response) {
+//     var name = [];
+//     var address = [];
+//     var coord = [];
+//     var tempArray = [];
+//     var lat;
+//     var long;
+//     var tempCoord;
 
-    console.log(response);
-    console.log(response.restaurants);
-    for (let value of response.restaurants) {
-        var eachName = value.restaurant.name
-        console.log(eachName);
-        name.push(eachName);
-        console.log(name);
-        var eachAddress = value.restaurant.location.address;
-        address.push(eachAddress);
-    }
+//     console.log(response);
+//     console.log(response.restaurants);
+//     for (let value of response.restaurants) {
+//         var eachName = value.restaurant.name
+//         console.log(eachName);
+//         name.push(eachName);
+//         console.log(name);
+//         var eachAddress = value.restaurant.location.address;
+//         address.push(eachAddress);
+//     }
 
-    for (let value of address) {
-      console.log(value)
-        $.ajax({
-            url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + value,
-            method: "GET"
-        }).done(function(response) {
-            for (let value of response.results) {
-                console.log(value.geometry.location);
-                lat = value.geometry.location.lat;
-                long = value.geometry.location.lng;
-                tempCoord = [lat, long];
-                tempArray.push(tempCoord);
-            }
-            console.log(tempArray);
+//     for (let value of address) {
+//       console.log(value)
+//         $.ajax({
+//             url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + value,
+//             method: "GET"
+//         }).done(function(response) {
+//             for (let value of response.results) {
+//                 console.log(value.geometry.location);
+//                 lat = value.geometry.location.lat;
+//                 long = value.geometry.location.lng;
+//                 tempCoord = [lat, long];
+//                 tempArray.push(tempCoord);
+//             }
+//             console.log(tempArray);
 
-        }).done(function() {
-          if (tempArray.length !== 5 ){
-            return;
-          }
-            console.log(name);
-            console.log(tempArray);
-            for (i = 0; i < name.length; i++) {
-                var mapPinAddressAndName = new attachToPin(name, lat, long);
-                mapPinAddressAndName.name = name[i];
-                mapPinAddressAndName.lat = tempArray[i][0];
-                mapPinAddressAndName.long = tempArray[i][1];
-                passArray.push(mapPinAddressAndName);
-            }
-        })
-    }
+//         }).done(function() {
+//           if (tempArray.length !== 5 ){
+//             return;
+//           }
+//             console.log(name);
+//             console.log(tempArray);
+//             for (i = 0; i < name.length; i++) {
+//                 var mapPinAddressAndName = new attachToPin(name, lat, long);
+//                 mapPinAddressAndName.name = name[i];
+//                 mapPinAddressAndName.lat = tempArray[i][0];
+//                 mapPinAddressAndName.long = tempArray[i][1];
+//                 passArray.push(mapPinAddressAndName);
+//             }
+//         })
+//     }
 
 
-})
-            console.log(passArray);
+// })
+//             console.log(passArray);
