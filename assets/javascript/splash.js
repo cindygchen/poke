@@ -58,14 +58,15 @@ $(document).on("click", ".choices", function() {
 
 // When user completes splash page navigation/input, display results and map
 $(document).on("click", ".go-button", function() {
- 	//showResults
-	//showMapTags
+ 	//make API call to Zumato/Google Places, use results to populate content area of index.html
+	//make API call to Google Maps, use results to add pins to map
 });
 
 
 
-// // When you click on a result, it expands to show more details
-// $(".result-item").on("click", function() {
-// 	//expandDetails	
-// });
+// Details are hidden on page load. When you click on a result, it expands to show details
+$(".details").hide();
+$(document).on("click", ".details-link", function() {
+	$(this).parents().eq(3).next().slideToggle(700);
+});
 
