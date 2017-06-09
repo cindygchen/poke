@@ -75,3 +75,7 @@ $(window).on("unload", function() {
     sessionStorage.clear();
     splashSearch = [];
 });
+
+function generateContent() {
+	$(".results").append("<article class='media hiking'><div class='media-left'><figure class='image is-48x48'><svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='4' fill='#00d1b2'></svg><object type='image/svg+xml' data='assets/images/icons/hiker.svg' class='type-icon'>Your browser does not support SVG</object></figure></div><div class='media-content'><div class='content'><p><strong>Hiking Trailhead</strong> <a class='details-link'><small>More Details</small></a><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p></div></div></article><div class='details'><br><div class='details-content'>HERE ARE THE DETAILS!</div></div><hr>");
+};
