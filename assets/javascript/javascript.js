@@ -294,6 +294,7 @@ $.ajax({
     photoIDArray.push(photoID)
     coordArray.push(coord)
   }
+  console.log(this);
   console.log(nameArray)
   console.log(photoIDArray)
   console.log(coordArray)
