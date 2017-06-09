@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>calendar test</title>
-
-	    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&callback=initMap">
-    </script>
-
-    <script src="test.js"></script>
-
+		<meta charset="utf-8">
+		<title>GREGIS</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
 </head>
 <body>
-<div id="imageContainer">
 
-</div>
-<div id="map"></div>
+<div class="results"></div>
+<style type="text/css">
+
+.type-icon {
+	height: 64px;
+	width: 64px;
+	z-index: 100;
+	position: relative;
+	left: 25px;
+	bottom: 88px;
+}
+
+svg {
+	z-index: 10;
+	position: relative;
+}
+
+</style>
+<script type="text/javascript">
+	var circle = $("<circle>").attr({"cx":"50", "cy":"50", "r":"40", "stroke": "black", "stroke-width":"4", "fill": "#00d1b2"});
+	var svg = $("<svg>").attr({"width": "100", "height": "100"}).append(circle);
+	var object = $("<object>").attr({"type":"image/svg+xml", "data":"assets/images/icons/" + "disco-ball" + ".svg", "class":"type-icon"});
+	var figure = $("<figure>").append(svg).append(object);
+	var div1 = $("<div>").addClass("media-left").append(figure);
+	var div2Child = $("<div>").addClass("content").append("<p><strong>" + "type" + "</strong> <a class='details-link'><small>More Details</small></a><br>" + "Here is the description" + "</p>");
+	var div2 = $("<div>").addClass("media-content").append(div2Child);
+	var article = $("<article>").addClass("media").append(div1).append(div2);
+	var detailsDiv = $("<div>").addClass("details").append("<br><div class='details-content'>" + "HERE ARE THE DETAILS!" + "</div>");
+	$(".results").append(article).append(detailsDiv).append("<hr>");
+</script>
+
 </body>
 </html>
