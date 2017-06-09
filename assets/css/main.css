@@ -41,7 +41,9 @@ svg {
 }
 
 
-
+object {
+    pointer-events: none;
+}
 
 
 

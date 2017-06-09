@@ -180,3 +180,7 @@ time {
     border-color: transparent #00d1b2 transparent transparent;
   }
 }
+
+object {
+    pointer-events: none;
+}
