@@ -59,7 +59,6 @@ $(window).on("load", function() {
 			                description: description
 			            };
 
-
 			    		var circle = $("<circle>").attr({"cx":"50", "cy":"50", "r":"40", "stroke": "black", "stroke-width":"4", "fill": "#00d1b2"});
 						var svg = $("<svg>").attr({"width": "100", "height": "100"}).append(circle);
 						var object = $("<object>").attr({"type":"image/svg+xml", "data":"assets/images/icons/" + "disco-ball" + ".svg", "class":"type-icon"});
@@ -70,8 +69,6 @@ $(window).on("load", function() {
 						var article = $("<article>").addClass("media").append(div1).append(div2);
 						var detailsDiv = $("<div>").addClass("details").append("<br><div class='details-content'>" + "HERE ARE THE DETAILS!" + "</div>");
 						$(".results").append(article).append(detailsDiv).append("<hr>");
-
-
 
 			            searchObjectNameLocationAndPhotoID.push(attachToPin)
 			        });
