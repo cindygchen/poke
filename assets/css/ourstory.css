@@ -171,3 +171,7 @@ time {
     border-color: transparent #F45B69 transparent transparent;
   }
 }
+
+object {
+    pointer-events: none;
+}

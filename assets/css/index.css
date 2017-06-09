@@ -46,3 +46,7 @@ body {
 .tiles {
     margin-bottom: 20px
 }
+
+object {
+    pointer-events: none;
+}
