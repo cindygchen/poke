@@ -74,7 +74,3 @@ $(document).on("click", ".go-button", function() {
 $(window).on("load", function() {
 	sessionStorage.clear();
 });
-
-
-
-

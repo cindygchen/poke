@@ -148,3 +148,7 @@ figure.snip1477.hover figcaption {
    width: 100%;
    padding: 50px;  
 }
+
+object {
+    pointer-events: none;
+}
