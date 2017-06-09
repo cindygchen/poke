@@ -2,7 +2,17 @@
 	border-radius: none;
 	box-shadow: none;
 }
-
+.banner {
+	background-image: url("../images/waves.gif");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+/*	background-color: teal;*/
+}
+ .white {
+ 	color: #fff;
+ }
 *,
 *::before,
 *::after {
@@ -20,12 +30,11 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .timelineintro {
-  background: #F45B69;
   padding: 100px 0;
 }
 
 .timelinecontainer {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
@@ -70,7 +79,7 @@
   bottom: 0;
   width: 400px;
   padding: 15px;
-  background: #F45B69;
+  background: #00d1b2;
 }
 
 .timeline ul li div::before {
@@ -89,7 +98,7 @@
 .timeline ul li:nth-child(odd) div::before {
   left: -15px;
   border-width: 8px 16px 8px 0;
-  border-color: transparent #F45B69 transparent transparent;
+  border-color: transparent #00d1b2 transparent transparent;
 }
 
 .timeline ul li:nth-child(even) div {
@@ -99,12 +108,12 @@
 .timeline ul li:nth-child(even) div::before {
   right: -15px;
   border-width: 8px 0 8px 16px;
-  border-color: transparent transparent transparent #F45B69;
+  border-color: transparent transparent transparent #00d1b2;
 }
 
 time {
   display: block;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 8px;
 }
@@ -118,7 +127,7 @@ time {
 }
 
 .timeline ul li.in-view::after {
-  background: #F45B69;
+  background: #00d1b2;
 }
 
 .timeline ul li div {
@@ -168,7 +177,7 @@ time {
   .timeline ul li:nth-child(even) div::before {
     left: -15px;
     border-width: 8px 16px 8px 0;
-    border-color: transparent #F45B69 transparent transparent;
+    border-color: transparent #00d1b2 transparent transparent;
   }
 }
 
