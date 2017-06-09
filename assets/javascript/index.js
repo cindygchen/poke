@@ -1,78 +1,74 @@
-var searchObjectNameLocationAndPhotoID = []; 
-
-
-// Details are hidden on page load. When you click on a result, it expands to show details
-$(".details").hide();
-$(document).on("click", ".details-link", function() {
-    $(this).parents().eq(3).next().slideToggle(700);
+// When splash page food tile is clicked, display restaurant category tiles and buttons
+$(".food-tile").on("click", function() {
+	$(".hero-title").html("What are you hungry for?");
+	$(".is-ancestor").empty().addClass("line1");
+	$(".tiles").append("<div class='tile is-ancestor line2'></div>")
+				.append("<div class='tile is-ancestor line3'></div>")
+	$(".button-area").append("<div class='column is-2 is-offset-4'><a href='main.html' class='button is-primary is-large go-button'>Go</a></div>")
+						.append("<div class='column is-2'><a href='index.html' class='button is-primary is-large cancel-button'>Cancel</a></div>");
+	var foodChoices = ["Italian", "Chinese", "Mexican", "Japanese", "Mediterranean",
+						"Thai", "American", "Indian", "Vietnamese"];
+	for (var i = 0; i < 3; i++) {
+		$(".line1").append("<div class='tile is-parent food-tile-" + i + "'>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+	}
+	for (var i = 3; i < 6; i++) {
+		$(".line2").append("<div class='tile is-parent food-tile-" + i + "'>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+	}
+	for (var i = 6; i < 9; i++) {
+		$(".line3").append("<div class='tile is-parent food-tile-" + i + "'>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+	}
 });
 
-// When user uses index.html search field, add their input to an array
-$(".index-search-button").on("click", function(event) {
-    event.preventDefault();
-    var indexSearch = $(".index-search-field").val().trim();
-    $(".index-search-field").val("");
-    if (indexSearch != "") {
-        //make API calls
-    }
+// When splash page day activities tile is clicked, display day category tiles and buttons
+$(".day-tile").on("click", function() {
+	$(".hero-title").html("Carpe diem!");
+	$(".is-ancestor").empty();
+	$(".button-area").append("<div class='column is-2 is-offset-4'><a href='main.html' class='button is-primary is-large go-button'>Go</a></div>")
+						.append("<div class='column is-2'><a href='index.html' class='button is-primary is-large cancel-button'>Cancel</a></div>");
+	var dayChoices = ["Beaches", "Hikes", "Farmers Markets", "Breweries"];
+	for (var i = 0; i < dayChoices.length; i++) {
+		$(".is-ancestor").append("<div class='tile is-parent day-tile-" + i + "'>");
+		$(".day-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + dayChoices[i] + "</p></article>");
+	}		
 });
 
-// splashSearch saves the sessionStorage data into a new array
-var splashSearch = sessionStorage.userChoices.split([","]);
-console.log("Search Terms: " + splashSearch);
+// When splash page night activities tile is clicked, display night category tiles and buttons
+$(".night-tile").on("click", function() {
+	$(".hero-title").html("Night owls welcome...");
+	$(".is-ancestor").empty();
+	$(".button-area").append("<div class='column is-2 is-offset-4'><a href='main.html' class='button is-primary is-large go-button'>Go</a></div>")
+						.append("<div class='column is-2'><a href='index.html' class='button is-primary is-large cancel-button'>Cancel</a></div>");
+	var nightChoices = ["Bars", "Clubs", "Breweries"];
+	for (var i = 0; i < nightChoices.length; i++) {
+		$(".is-ancestor").append("<div class='tile is-parent night-tile-" + i + "'>");
+		$(".night-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + nightChoices[i] + "</p></article>");
+	}
+});
 
-// On load, if splashSearch is not empty, search Google Places for those search terms
+// When any category tile is clicked, save it's text in an array to use in AJAX call
+var splashSearch = [];
+$(document).on("click", ".choices", function() {
+	$(this).removeClass("is-primary").css({"background-color": "#007664", "color": "#fff"});
+	var buttonValue = $(this).text();
+	splashSearch.push(buttonValue);
+});
+
+// When user completes splash page navigation/input by clicking go button, display results and map
+$(document).on("click", ".go-button", function() {
+	//save splashSearch array in session storage so it can be called after navigation to main.html
+	sessionStorage.setItem("userChoices", splashSearch);
+ 	//make API call to Google Places, use results to populate content area of main.html
+	//make API call to Google Maps, use results to add pins to map
+});
+
+// If user clicks tiles (adds to searchTerms array) but then refreshes page, sessionStorage is cleared.
 $(window).on("load", function() {
-    if (splashSearch != []) {
-        for (var i = 0; i < splashSearch.length; i++) {
-            //make API calls
-            var query = splashSearch[i];
-            $.ajax({
-                url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + query + "&location=32.7157380,-117.1610840&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw"
-
-            }).done(function(response) {
-                var nameArray = [];
-                var photoIDArray = [];
-                var coordArray = [];
-                var coord = [];
-                var lat;
-                var lng;
-                var photoID = [];
-                var name;
-                var items = response.results
-                var tempArray = []
-
-                for (let value of items) {
-                    lat = value.geometry.location.lat
-                    lng = value.geometry.location.lng
-                    photoID = value.photos && value.photos[0].photo_reference
-                    name = value.name
-                    coord = [lat, lng]
-                    nameArray.push(name)
-                    photoIDArray.push(photoID)
-                    coordArray.push(coord)
-                }
-                for (i = 0; i < nameArray.length; i++) {
-                    var attachToPin = {
-                        name: nameArray[i],
-                        lat: coordArray[i][0],
-                        lng: coordArray[i][1],
-                        photoID: photoIDArray[i]
-                    }
-                    tempArray.push(attachToPin)
-                }
-
-                searchObjectNameLocationAndPhotoID.push(tempArray)
-                return searchObjectNameLocationAndPhotoID
-            })
-        }
-    }
+	sessionStorage.clear();
 });
 
 
 
-// If user reloads page after navigating to index.html, they lose their search criteria
-$(window).on("unload", function() {
-    sessionStorage.clear();
-    splashSearch = [];
-});
+
