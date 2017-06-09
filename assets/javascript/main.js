@@ -1,6 +1,5 @@
 var searchObjectNameLocationAndPhotoID = []; 
 
-
 // Details are hidden on page load. When you click on a result, it expands to show details
 $(".details").hide();
 $(document).on("click", ".details-link", function() {
