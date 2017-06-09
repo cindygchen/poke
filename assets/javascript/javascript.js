@@ -58,7 +58,7 @@ var markerArray=[];
             type: 'Hiking'
           }, 
           {
-            name: 'La Jolla',
+            name: "La Jolla",
             position: new google.maps.LatLng(32.838456, -117.271468),
             address: "7335 Girard Ave, La Jolla, CA 92037",
             type: 'FarmersMarket'
@@ -207,12 +207,18 @@ var markerArray=[];
       });
 
       map.addListener('click', function(event){
-        
+        for(var i = 0; i < searchpin.length; i++){
+          searchpin[i].setMap(null);
+        }
+        searchpin = [];
         radiusSearch(event.latLng);
         console.log(event.latLng.lat() + " " + event.latLng.lng());
         searchlat = event.latLng.lat();
         searchlng = event.latLng.lng();
+        searchcall();
+        console.log(event.target);
       });
+
 
       function forclicks(args){
           clearMarkers();
@@ -240,51 +246,60 @@ var markerArray=[];
                 strokeWeight: 100,
                 strokeColor: 'black'
                 },
-                map: map
+                name: markers[i].name,
+                map: map,
+                address: markers[i].address
               });
+      marker.addListener('click', function(){
+          console.log(marker.name);
+          console.log(marker.address);
+        });
+
         markerArray.push(marker);
         }
       }
 
-// searches local areas for activities using google places api         //
-//     var query = "hiking"
-//     function placeAddressNameAndPicture(name, lat, lng, photoID, photo) {
-//       this.name = name;
-//       this.lat = lat;
-//       this.lng = lng;
-//       this.photoID = photoID
-//       this.photo = photo
-//     }
 
-// $.ajax({
-//   url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
-// }).done(function(response){
-//   var nameArray =  [];
-//   var photoIDArray = [];
-//   var coordArray = [];
-//   var coord = [];
-//   var lat;
-//   var lng;
-//   var photoID;
-//   var name;
-//   var items = response.results
-//   console.log(items[0].photos[0].photo_reference)
-//   for (let value of items) {
-//     lat = value.geometry.location.lat 
-//     lng = value.geometry.location.lng
-//     photoID = value.photos[0].photo_reference
-//     name = value.name 
-//     coord = [lat,lng]
-//     nameArray.push(name)
-//     photoIDArray.push(photoID)
-//     coordArray.push(coord)
-//   }
-//   console.log(nameArray)
-//   console.log(photoIDArray)
-//   console.log(coordArray)
-// })
-//         //
-//       });
+// // searches local areas for activities using google places api         //
+    var query = "food"
+    function placeAddressNameAndPicture(name, lat, lng, photoID, photo) {
+      this.name = name;
+      this.lat = lat;
+      this.lng = lng;
+      this.photoID = photoID
+      this.photo = photo
+    }
+function searchcall(){
+
+$.ajax({
+  url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
+}).done(function(response){
+  var nameArray =  [];
+  var photoIDArray = [];
+  var coordArray = [];
+  var coord = [];
+  var lat;
+  var lng;
+  var photoID;
+  var name;
+  var items = response.results
+  console.log(items[0].photos[0].photo_reference)
+  for (let value of items) {
+    lat = value.geometry.location.lat 
+    lng = value.geometry.location.lng
+    photoID = value.photos[0].photo_reference
+    name = value.name 
+    coord = [lat,lng]
+    nameArray.push(name)
+    photoIDArray.push(photoID)
+    coordArray.push(coord)
+  }
+  console.log(nameArray)
+  console.log(photoIDArray)
+  console.log(coordArray)
+});
+        //
+      }
 
       function radiusSearch(location){
         var marker = new google.maps.Marker({
