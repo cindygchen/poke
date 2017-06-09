@@ -10,15 +10,15 @@ $(".food-tile").on("click", function() {
 						"Thai", "American", "Indian", "Vietnamese"];
 	for (var i = 0; i < 3; i++) {
 		$(".line1").append("<div class='tile is-parent food-tile-" + i + "'>");
-		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices-food'><p class='title'>" + foodChoices[i] + "</p></article>");
 	}
 	for (var i = 3; i < 6; i++) {
 		$(".line2").append("<div class='tile is-parent food-tile-" + i + "'>");
-		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices-food'><p class='title'>" + foodChoices[i] + "</p></article>");
 	}
 	for (var i = 6; i < 9; i++) {
 		$(".line3").append("<div class='tile is-parent food-tile-" + i + "'>");
-		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices'><p class='title'>" + foodChoices[i] + "</p></article>");
+		$(".food-tile-" + i).html("<article class='tile is-child box notification is-primary choices-food'><p class='title'>" + foodChoices[i] + "</p></article>");
 	}
 });
 
@@ -48,12 +48,18 @@ $(".night-tile").on("click", function() {
 	}
 });
 
-// When any category tile is clicked, save it's text in an array to use in AJAX call
+// When a day/night category tile is clicked, save it's text in an array to use in AJAX call
 var splashSearch = [];
 $(document).on("click", ".choices", function() {
 	$(this).removeClass("is-primary").css({"background-color": "#007664", "color": "#fff"});
-	var buttonValue = $(this).text();
-	splashSearch.push(buttonValue);
+	var buttonValueNonFood = $(this).text();
+	splashSearch.push(buttonValueNonFood);
+});
+// When a food category tile is clicked, append "restaurant" and save it's text in an array to use in AJAX call
+$(document).on("click", ".choices-food", function() {
+	$(this).removeClass("is-primary").css({"background-color": "#007664", "color": "#fff"});
+	var buttonValueFood = $(this).text() + " Restaurant";
+	splashSearch.push(buttonValueFood);
 });
 
 // When user completes splash page navigation/input by clicking go button, display results and map
