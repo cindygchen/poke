@@ -1,12 +1,18 @@
+// Details are hidden on page load. When you click on a result, it expands to show details
+$(".details").hide();
+$(document).on("click", ".details-link", function() {
+	$(this).parents().eq(3).next().slideToggle(700);
+});
+
 // When user uses index.html search field, add their input to an array
-$(".index-search-button").on("click", function(event)) {
+$(".index-search-button").on("click", function(event) {
 	event.preventDefault();
 	var indexSearch = $(".index-search-field").val().trim();
 	$(".index-search-field").val("");
 	if (indexSearch != "") {
 		//make API calls
 	}
-}
+});
 
 // splashSearch saves the sessionStorage data into a new array
 var splashSearch = sessionStorage.userChoices.split([","]);
@@ -19,12 +25,6 @@ $(window).on("load", function() {
 			//make API calls
 		}
 	}
-});
-
-// Details are hidden on page load. When you click on a result, it expands to show details
-$(".details").hide();
-$(document).on("click", ".details-link", function() {
-	$(this).parents().eq(3).next().slideToggle(700);
 });
 
 // If user reloads page after navigating to index.html, they lose their search criteria
