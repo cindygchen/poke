@@ -1,9 +1,13 @@
 var map, infoWindow;
 var markers = [];
 var searchpin=[];
-var searchlat;
-var searchlng;
+var searchlat = 32.8;
+var searchlng = -117.2;
 var markerArray=[];
+var splashSearch = sessionStorage.userChoices.split([","]);
+console.log("Search Terms: " + splashSearch);
+
+
 var query = "food";
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -27,6 +31,10 @@ var query = "food";
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
+          if(splashSearch!==[]){
+            query = splashSearch;
+            searchcall();
+            }
         } else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
