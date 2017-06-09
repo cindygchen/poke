@@ -339,6 +339,7 @@ $.ajax({
     nameArray.push(name)
     photoIDArray.push(photoID)
     coordArray.push(coord)
+<<<<<<< HEAD
 
     new google.maps.Marker({
       position: {lat, lng},
@@ -346,6 +347,9 @@ $.ajax({
 
     })
   };
+=======
+  }
+>>>>>>> d743c86a99d6ac49a15e2ea39fbf9fef479d4c00
   console.log(this);
   console.log(nameArray)
   console.log(photoIDArray)
