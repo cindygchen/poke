@@ -1,9 +1,14 @@
 var map, infoWindow;
 var markers = [];
 var searchpin=[];
-var searchlat;
-var searchlng;
+var searchlat = 32.8;
+var searchlng = -117.2;
 var markerArray=[];
+var splashSearch = sessionStorage.userChoices.split([","]);
+console.log("Search Terms: " + splashSearch);
+
+
+var query = "food";
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: {lat: 32.8800604, lng: -117.2340135},
@@ -11,6 +16,29 @@ var markerArray=[];
           mapTypeId: 'roadmap'
         });
         infoWindow = new google.maps.InfoWindow;
+
+                if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+          if(splashSearch!==[]){
+            query = splashSearch;
+            searchcall();
+            }
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
 
         //markers
         var iconBase = 'assets/images/icons/';
@@ -249,6 +277,7 @@ var markerArray=[];
 
 
       function forclicks(args){
+          query = args;
           clearMarkers();
           var temp =[];
           markers =[];
@@ -276,8 +305,9 @@ var markerArray=[];
         var marker = new google.maps.Marker({
             position: markers[i].position,
             icon: {
-                url: icons[markers[i].type].icon,
-                scaledSize: new google.maps.Size(100,100),
+                // url: icons[markers[i].type].icon,
+                url: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                scaledSize: new google.maps.Size(20,20),
                 strokeWeight: 100,
                 strokeColor: 'black'
                 },
@@ -307,7 +337,6 @@ function markerclick(marker){
 };
 
 // // searches local areas for activities using google places api         //
-    var query = "food";
     function placeAddressNameAndPicture(name, lat, lng, photoID, photo) {
       this.name = name;
       this.lat = lat;
@@ -340,10 +369,12 @@ function searchcall(){
       photoIDArray.push(photoID);
       coordArray.push(coord);
 
-      new google.maps.Marker({
+      var marker = new google.maps.Marker({
         position: {lat, lng},
-        map: map
+        map: map,
+        title: name
       })
+      markerArray.push(marker);
     }
 
   });
@@ -384,24 +415,7 @@ function searchcall(){
       }
       //
         // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
       }
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
