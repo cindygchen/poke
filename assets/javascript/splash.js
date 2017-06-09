@@ -49,18 +49,17 @@ $(".night-tile").on("click", function() {
 });
 
 // When any category tile is clicked, save it's text in an array to use in AJAX call
-var searchTerms = [];
+var splashSearch = [];
 $(document).on("click", ".choices", function() {
 	$(this).removeClass("is-primary").css({"background-color": "#007664", "color": "#fff"});
 	var buttonValue = $(this).text();
-	searchTerms.push(buttonValue);
+	splashSearch.push(buttonValue);
 });
 
 // When user completes splash page navigation/input by clicking go button, display results and map
 $(document).on("click", ".go-button", function() {
-	//save searchTerms array in session storage so it can be called after navigation to index.html
-	sessionStorage.setItem("userChoices", searchTerms);
-	
+	//save splashSearch array in session storage so it can be called after navigation to index.html
+	sessionStorage.setItem("userChoices", splashSearch);
  	//make API call to Google Places, use results to populate content area of index.html
 	//make API call to Google Maps, use results to add pins to map
 });
