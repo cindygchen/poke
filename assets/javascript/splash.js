@@ -49,24 +49,26 @@ $(".night-tile").on("click", function() {
 });
 
 // When any category tile is clicked, save it's text in an array to use in AJAX call
-var searchTerms = [];
+var splashSearch = [];
 $(document).on("click", ".choices", function() {
 	$(this).removeClass("is-primary").css({"background-color": "#007664", "color": "#fff"});
 	var buttonValue = $(this).text();
-	searchTerms.push(buttonValue);
+	splashSearch.push(buttonValue);
 });
 
-// When user completes splash page navigation/input, display results and map
+// When user completes splash page navigation/input by clicking go button, display results and map
 $(document).on("click", ".go-button", function() {
- 	//make API call to Zumato/Google Places, use results to populate content area of index.html
+	//save splashSearch array in session storage so it can be called after navigation to index.html
+	sessionStorage.setItem("userChoices", splashSearch);
+ 	//make API call to Google Places, use results to populate content area of index.html
 	//make API call to Google Maps, use results to add pins to map
 });
 
-
-
-// Details are hidden on page load. When you click on a result, it expands to show details
-$(".details").hide();
-$(document).on("click", ".details-link", function() {
-	$(this).parents().eq(3).next().slideToggle(700);
+// If user clicks tiles (adds to searchTerms array) but then refreshes page, sessionStorage is cleared.
+$(window).on("load", function() {
+	sessionStorage.clear();
 });
+
+
+
 
