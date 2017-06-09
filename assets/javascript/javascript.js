@@ -307,56 +307,56 @@ function markerclick(marker){
 };
 
 // // searches local areas for activities using google places api         //
-    var query = "food"
+    var query = "food";
     function placeAddressNameAndPicture(name, lat, lng, photoID, photo) {
       this.name = name;
       this.lat = lat;
       this.lng = lng;
-      this.photoID = photoID
-      this.photo = photo
+      this.photoID = photoID;
+      this.photo = photo;
     }
 function searchcall(){
 
-$.ajax({
-  url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
-}).done(function(response){
-  var nameArray =  [];
-  var photoIDArray = [];
-  var coordArray = [];
-  var coord = [];
-  var lat;
-  var lng;
-  var photoID;
-  var name;
-  var items = response.results
-  console.log(items[0].photos[0].photo_reference)
-  for (let value of items) {
-    lat = value.geometry.location.lat 
-    lng = value.geometry.location.lng
-    photoID = value.photos[0].photo_reference
-    name = value.name 
-    coord = [lat,lng]
-    nameArray.push(name)
-    photoIDArray.push(photoID)
-    coordArray.push(coord)
-<<<<<<< HEAD
+  $.ajax({
+    url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
+  }).done(function(response){
+    var nameArray =  [];
+    var photoIDArray = [];
+    var coordArray = [];
+    var coord = [];
+    var lat;
+    var lng;
+    var photoID;
+    var name;
+    var items = response.results;
+    console.log(items[0].photos[0].photo_reference);
+    for (let value of items) {
+      lat = value.geometry.location.lat; 
+      lng = value.geometry.location.lng;
+      photoID = value.photos[0].photo_reference;
+      name = value.name; 
+      coord = [lat,lng];
+      nameArray.push(name);
+      photoIDArray.push(photoID);
+      coordArray.push(coord);
 
-    new google.maps.Marker({
-      position: {lat, lng},
-      map: map
+      new google.maps.Marker({
+        position: {lat, lng},
+        map: map
+      })
+    }
 
-    })
-  };
-=======
-  }
->>>>>>> d743c86a99d6ac49a15e2ea39fbf9fef479d4c00
+  });
+
+
   console.log(this);
   console.log(nameArray)
   console.log(photoIDArray)
   console.log(coordArray)
-});
-        //
-      }
+
+};
+
+
 
       function radiusSearch(location){
         var marker = new google.maps.Marker({
