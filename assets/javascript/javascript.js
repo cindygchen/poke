@@ -4,6 +4,7 @@ var searchpin=[];
 var searchlat = 32.8;
 var searchlng = -117.2;
 var markerArray=[];
+var nameArray=[];
 var splashSearch = sessionStorage.userChoices.split([","]);
 console.log("Search Terms: " + splashSearch);
 
@@ -12,8 +13,7 @@ var query = "food";
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: {lat: 32.8800604, lng: -117.2340135},
-          zoom: 12,
-          mapTypeId: 'roadmap'
+          zoom: 10,
         });
         infoWindow = new google.maps.InfoWindow;
 
@@ -23,17 +23,19 @@ var query = "food";
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
+            map.setCenter(pos);
+            map.setZoom(12);
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
-            map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
           if(splashSearch!==[]){
             query = splashSearch;
+            clearMarkers();
             searchcall();
+
             }
         } else {
           // Browser doesn't support Geolocation
@@ -268,11 +270,11 @@ var query = "food";
         }
         searchpin = [];
         radiusSearch(event.latLng);
-        console.log(event.latLng.lat() + " " + event.latLng.lng());
+        // console.log(event.latLng.lat() + " " + event.latLng.lng());
         searchlat = event.latLng.lat();
         searchlng = event.latLng.lng();
         searchcall();
-        console.log(event.target);
+        // console.log(event.target);
       });
 
 
@@ -281,28 +283,27 @@ var query = "food";
           clearMarkers();
           var temp =[];
           markers =[];
-          for(var i = 0; i < features.length; i++){
+        for(var i = 0; i < features.length; i++){
           if(features[i].type == args){
-            console.log("sand");
+            // console.log("sand");
             temp.push(features[i]);
-            console.log(temp);
-          };}
-         markers = temp;
-          
+            // console.log(temp);
+          }
+        }
+          markers = temp;
           makemarks();
-          console.log(markers);
+          // console.log(markers);
           $(".details-content").empty();
           for(var i = 0; i < markers.length; i++){
             var addon = $("<div>").addClass(markers[i].id).html(markers[i].name + "<p>" + markers[i].address + "<p><br>");
-            console.log(addon);
-
+            // console.log(addon);
             $(".details-content").append(addon)
           }
       };
 
       function makemarks(){
         for(var i = 0; i < markers.length; i++){
-        var marker = new google.maps.Marker({
+          var marker = new google.maps.Marker({
             position: markers[i].position,
             icon: {
                 // url: icons[markers[i].type].icon,
@@ -311,29 +312,25 @@ var query = "food";
                 strokeWeight: 100,
                 strokeColor: 'black'
                 },
-                name: markers[i].name,
-                map: map,
-                address: markers[i].address,
-                id: markers[i].id
-              });
-
-      google.maps.event.addListener(marker, 'click', function(){
-        markerclick(this);
-      });
-
-        markerArray.push(marker);
+            name: markers[i].name,
+            map: map,
+            address: markers[i].address,
+            id: markers[i].id
+          });
+          google.maps.event.addListener(marker, 'click', function(){
+            markerclick(this);
+          });
+          markerArray.push(marker);
+        }
       }
-    }
 
-function markerclick(marker){
-  console.log(marker.name);
-  console.log(marker.id);
-  var divhold = '.' + marker.id ;
-    $('html, body').animate({
-        scrollTop: $(divhold).offset().top
+      function markerclick(marker){
+        // console.log(marker.name);
+        // console.log(marker.id);
+        var divhold = '.' + marker.id ;
+        $('html, body').animate({
+          scrollTop: $(divhold).offset().top
     }, 2000);
-
-  
 };
 
 // // searches local areas for activities using google places api         //
@@ -344,7 +341,9 @@ function markerclick(marker){
       this.photoID = photoID;
       this.photo = photo;
     }
+
 function searchcall(){
+  $(".details-content").empty();
 
   $.ajax({
     url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
@@ -355,35 +354,57 @@ function searchcall(){
     var coord = [];
     var lat;
     var lng;
+    var placeID;
     var photoID;
     var name;
     var items = response.results;
-    console.log(items[0].photos[0].photo_reference);
+    var review;
+    // console.log(items[0].photos[0].photo_reference);
     for (let value of items) {
       lat = value.geometry.location.lat; 
       lng = value.geometry.location.lng;
       photoID = value.photos[0].photo_reference;
       name = value.name; 
       coord = [lat,lng];
+      placeID = value.place_id;
       nameArray.push(name);
       photoIDArray.push(photoID);
       coordArray.push(coord);
 
+      $.ajax({
+        url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw"
+        }).done(function(response) {
+                  name = response.result.name;
+                  console.log(response);
+                  review = response.result.reviews[0].text;
+                  console.log(review);
+                
+                  var addon = $("<div>").addClass(photoID).html(name + "<p>" + review + "<p><br>");
+                    // console.log(addon);
+                  $(".details-content").append(addon);
+                });
+
+
+
       var marker = new google.maps.Marker({
         position: {lat, lng},
         map: map,
-        title: name
+        title: name,
+        id: photoID
+
       })
       markerArray.push(marker);
+
+
+  // console.log(nameArray)
+  // console.log(photoIDArray)
+  // console.log(coordArray)
     }
 
   });
 
 
-  console.log(this);
-  console.log(nameArray)
-  console.log(photoIDArray)
-  console.log(coordArray)
+  // console.log(this);
 
 };
 
