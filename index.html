@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+		<title>GREGIS</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+</head>
+<body>
+
+	<nav class="nav has-shadow">
+	  <div class="container">
+	    <div class="nav-left">
+	      <a class="nav-item">
+	        <h1> GREGIS </h1>
+	      </a>
+	      <a class="nav-item is-tab is-hidden-mobile is-active" href="index.html">Home</a>
+	      <a class="nav-item is-tab is-hidden-mobile" href="ourstory.html">Our Story</a>
+	      <a class="nav-item is-tab is-hidden-mobile" href="findus.html">Find Us</a>
+	    </div>
+	    <span class="nav-toggle">
+	      <span></span>
+	      <span></span>
+	      <span></span>
+	    </span>
+	    <div class="nav-right nav-menu">
+	      <a class="nav-item is-tab is-hidden-tablet is-active">Our Story</a>
+	      <a class="nav-item is-tab is-hidden-tablet">Find Us</a>
+	      <p class="nav-item"> A Web Application Built by Team NaN</p>
+	    </div>
+	  </div>
+	</nav>
+
+	<section class="hero">
+		<div class="hero-body">
+			<div class="container">
+			  <h1 class="title hero-title">
+			    What's on your mind?
+			  </h1>
+			</div>
+		</div>
+	</section>
+
+	<div class="container tiles">
+		<div class="tile is-ancestor">
+			<div class="tile is-parent food-tile">
+				<article class="tile is-child notification is-primary">
+					<figure class="image is-64x64">
+						<object type="image/svg+xml" data="assets/images/icons/restaurant.svg" class="type-icon">
+							Your browser does not support SVG
+						</object>
+					</figure>
+					<p class="title">Food</p>
+					<p class="subtitle">Breakfast, Brunch, Lunch, Dinner</p>
+				</article>
+			</div>
+			<div class="tile is-parent day-tile">
+				<article class="tile is-child notification is-primary">
+					<figure class="image is-64x64">
+						<object type="image/svg+xml" data="assets/images/icons/sandals.svg" class="type-icon">
+							Your browser does not support SVG
+						</object>
+					</figure>
+					<p class="title">Day Activites</p>
+					<p class="subtitle">Beaches, Hikes, Farmers Markets</p>
+				</article>
+			</div>
+			<div class="tile is-parent night-tile">
+				<article class="tile is-child notification is-primary">
+					<figure class="image is-64x64">
+						<object type="image/svg+xml" data="assets/images/icons/cocktail.svg" class="type-icon">
+							Your browser does not support SVG
+						</object>
+					</figure>
+					<p class="title">Night Activities</p>
+					<p class="subtitle">Bars, Clubs, Comedy</p>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+
+	<div class="columns search-area">
+		<div class="column is-offset-5">
+			<div class="block">
+				<div class="field is-grouped">
+					<p class="control">
+						<input class="input is-primary index-search-field" type="text" placeholder="Search...">
+					</p>
+					<p class="control">
+						<button class="button is-primary index-search-button">Submit</button>
+					</p>
+				</div>
+			</div>
+	    </div>
+    </div>
+	
+	<div class="button-area columns"></div>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="content has-text-centered">
+				<p>
+					<strong>GREGIS</strong> by <a href="https://github.com/cindygchen/poke">Cindy Chen, Sungwoo Hur, Jesse Lu, Bryce Miller</a> 
+				</p>
+			</div>
+		</div>
+	</footer>
+
+<script type="text/javascript" src="assets/javascript/index.js">
+</script>
+</body>
+</html>

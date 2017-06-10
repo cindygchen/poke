@@ -1,0 +1,59 @@
+#map {
+	height: 100%;
+	width: 100%;
+	float: right;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.block {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 24px;
+}
+
+.results {
+	margin-left: 10px;
+}
+
+.type-icon {
+	height: 64px;
+	width: 64px;
+	z-index: 100;
+	position: relative;
+	left: 25px;
+	bottom: 88px;
+}
+
+svg {
+	z-index: 10;
+	position: relative;
+}
+
+.media-content {
+	margin-left: 40px;
+	margin-bottom: 15px;
+}
+
+
+object {
+    pointer-events: none;
+}
+
+
+
+
+
+/*--------------MEDIA QUERIES---------------*/
+@media screen and (max-width: 768px) {
+
+	#map {
+		height: 800px;
+	}
+
+}
