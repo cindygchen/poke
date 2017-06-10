@@ -73,6 +73,16 @@ $(document).on("click", ".go-button", function() {
 	//make API call to Google Maps, use results to add pins to map
 });
 
+
+$(".index-search-button").on('click', function(){
+        console.log("click");
+        var splashSearch = $(".index-search-field").val();
+        sessionStorage.setItem("userChoices", splashSearch);
+        console.log(sessionStorage.userChoices);
+        window.location.href = 'main.html';
+      });
+
+
 // If user clicks tiles (adds to searchTerms array) but then refreshes page, sessionStorage is cleared.
 $(window).on("load", function() {
 	sessionStorage.clear();

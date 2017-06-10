@@ -152,3 +152,12 @@ figure.snip1477.hover figcaption {
 object {
     pointer-events: none;
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 145px;
+}
