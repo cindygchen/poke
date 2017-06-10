@@ -17,6 +17,13 @@ body {
 	padding: 0;
 }
 
+.footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   padding: 50px;  
+}
+
 
 html, body {
 	/*height: 100%;*/
