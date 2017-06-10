@@ -1,5 +1,6 @@
 // When splash page food tile is clicked, display restaurant category tiles and buttons
 $(".food-tile").on("click", function() {
+	$(".search-area").remove();
 	$(".hero-title").html("What are you hungry for?");
 	$(".is-ancestor").empty().addClass("line1");
 	$(".tiles").append("<div class='tile is-ancestor line2'></div>")
@@ -24,6 +25,7 @@ $(".food-tile").on("click", function() {
 
 // When splash page day activities tile is clicked, display day category tiles and buttons
 $(".day-tile").on("click", function() {
+	$(".search-area").remove();
 	$(".hero-title").html("Carpe diem!");
 	$(".is-ancestor").empty();
 	$(".button-area").append("<div class='column is-2 is-offset-4'><a href='main.html' class='button is-primary is-large go-button'>Go</a></div>")
@@ -37,6 +39,7 @@ $(".day-tile").on("click", function() {
 
 // When splash page night activities tile is clicked, display night category tiles and buttons
 $(".night-tile").on("click", function() {
+	$(".search-area").remove();
 	$(".hero-title").html("Night owls welcome...");
 	$(".is-ancestor").empty();
 	$(".button-area").append("<div class='column is-2 is-offset-4'><a href='main.html' class='button is-primary is-large go-button'>Go</a></div>")
