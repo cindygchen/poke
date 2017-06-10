@@ -51,24 +51,18 @@ html, body {
 	bottom: 88px;
 }
 
-svg {
-	z-index: 10;
-	position: relative;
-}
-
 .media-content {
 	margin-left: 40px;
 	margin-bottom: 15px;
 }
 
-
 object {
     pointer-events: none;
 }
 
-
-
-
+.left {
+	background-color: lightgrey;
+}
 
 /*--------------MEDIA QUERIES---------------*/
 @media screen and (max-width: 768px) {
