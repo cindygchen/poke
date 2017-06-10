@@ -7,9 +7,8 @@ var markerArray=[];
 var nameArray=[];
 var splashSearch = sessionStorage.userChoices.split([","]);
 console.log("Search Terms: " + splashSearch);
-
-
 var query = "food";
+
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: {lat: 32.8800604, lng: -117.2340135},
@@ -325,12 +324,21 @@ var query = "food";
       }
 
       function markerclick(marker){
-        // console.log(marker.name);
-        // console.log(marker.id);
-        var divhold = '.' + marker.id ;
-        $('html, body').animate({
-          scrollTop: $(divhold).offset().top
-    }, 2000);
+        $(".details-content").empty();
+        var placeID = marker.id;
+        console.log(placeID);
+      $.ajax({
+        url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw",
+        async: true
+        }).done(function(response) {
+                  name = response.result.name;
+                  console.log(response);
+                  review = response.result.reviews[0].text;
+                  console.log(placeID);       
+                  var addon = $("<div>").addClass(photoID).html(name + "<p>" + review + "<p><br>");
+                    // console.log(addon);
+                  $(".details-content").append(addon);
+                });
 };
 
 // // searches local areas for activities using google places api         //
@@ -342,20 +350,17 @@ var query = "food";
       this.photo = photo;
     }
 
+    var photoID;
+
 function searchcall(){
   $(".details-content").empty();
 
   $.ajax({
     url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
   }).done(function(response){
-    var nameArray =  [];
-    var photoIDArray = [];
-    var coordArray = [];
-    var coord = [];
     var lat;
     var lng;
     var placeID;
-    var photoID;
     var name;
     var items = response.results;
     var review;
@@ -365,34 +370,17 @@ function searchcall(){
       lng = value.geometry.location.lng;
       photoID = value.photos[0].photo_reference;
       name = value.name; 
-      coord = [lat,lng];
       placeID = value.place_id;
-      nameArray.push(name);
-      photoIDArray.push(photoID);
-      coordArray.push(coord);
-
-      $.ajax({
-        url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw"
-        }).done(function(response) {
-                  name = response.result.name;
-                  console.log(response);
-                  review = response.result.reviews[0].text;
-                  console.log(review);
-                
-                  var addon = $("<div>").addClass(photoID).html(name + "<p>" + review + "<p><br>");
-                    // console.log(addon);
-                  $(".details-content").append(addon);
-                });
-
-
 
       var marker = new google.maps.Marker({
         position: {lat, lng},
         map: map,
         title: name,
-        id: photoID
-
-      })
+        id: placeID
+      });
+      google.maps.event.addListener(marker, 'click', function(){
+          markerclick(this);
+        });
       markerArray.push(marker);
 
 
