@@ -343,7 +343,30 @@ var query = "food";
                   console.log(response);
                   review = response.result.reviews[0].text;
                   console.log(placeID);       
-                  var addon = $("<div>").addClass(photoID).html(name + "<p>" + review + "<p><br>");
+                  var photoreference = response.result.photos[0].photo_reference
+                  var addon = $("<div>")
+                    .addClass("tile")
+                    .addClass("is-ancestor")
+                  var addon2 = $("<div>")
+                    .addClass("tile")
+                    .addClass("is-4")
+                  var addon3 = $("<div>")
+                    .addClass("tile")
+                  var addonPicture = $("<img>")
+                    .attr("src", "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+ photoreference + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw" )
+                  var pictureContainer = $("<div>")
+                    .addClass("tile")
+                    .addClass("is-child")
+                    .addClass("box")
+                  pictureContainer.append(addonPicture)
+                  var textContainer = $("<div>")
+                    .addClass("tile")
+                    .addClass("is-child")
+                    .addClass("box")
+                    .html(name + "<p>" + review + "<p><br>"); 
+                  addon2.append(pictureContainer)
+                  addon3.append(textContainer)
+                  addon.append(addon2).append(addon3)
                     // console.log(addon);
                   $(".details-content").append(addon);
                 });
