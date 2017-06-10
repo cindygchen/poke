@@ -5,7 +5,7 @@ var searchlat = 32.8;
 var searchlng = -117.2;
 var markerArray=[];
 var nameArray=[];
-var splashSearch = sessionStorage.userChoices.split([","]);
+var splashSearch = sessionStorage.userChoices;
 console.log("Search Terms: " + splashSearch);
 var query = "food";
 
@@ -24,6 +24,8 @@ var query = "food";
             };
             map.setCenter(pos);
             map.setZoom(12);
+            searchlat = position.coords.latitude;
+            searchlng = position.coords.longitude;
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
@@ -276,6 +278,12 @@ var query = "food";
         // console.log(event.target);
       });
 
+      $(".main-search-button").on('click', function(){
+        console.log("click");
+        query = $(".main-search-field").val();
+        console.log(query);
+        searchcall();
+      });
 
       function forclicks(args){
           query = args;
@@ -327,10 +335,10 @@ var query = "food";
         $(".details-content").empty();
         var placeID = marker.id;
         console.log(placeID);
-      $.ajax({
-        url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw",
-        async: true
-        }).done(function(response) {
+          $.ajax({
+            url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeID + "&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw",
+            async: true
+            }).done(function(response) {
                   name = response.result.name;
                   console.log(response);
                   review = response.result.reviews[0].text;
@@ -350,7 +358,7 @@ var query = "food";
       this.photo = photo;
     }
 
-    var photoID;
+  var photoID;
 
 function searchcall(){
   $(".details-content").empty();
@@ -368,7 +376,6 @@ function searchcall(){
     for (let value of items) {
       lat = value.geometry.location.lat; 
       lng = value.geometry.location.lng;
-      photoID = value.photos[0].photo_reference;
       name = value.name; 
       placeID = value.place_id;
 
@@ -382,21 +389,9 @@ function searchcall(){
           markerclick(this);
         });
       markerArray.push(marker);
-
-
-  // console.log(nameArray)
-  // console.log(photoIDArray)
-  // console.log(coordArray)
     }
-
   });
-
-
-  // console.log(this);
-
 };
-
-
 
       function radiusSearch(location){
         var marker = new google.maps.Marker({
