@@ -9,6 +9,7 @@ body {
 
 .go-button, .cancel-button {
     display: flex;
+    cursor:pointer;
 }
 
 .button-area {
@@ -44,7 +45,8 @@ body {
 }
 
 .tiles {
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    cursor:pointer;
 }
 
 object {
