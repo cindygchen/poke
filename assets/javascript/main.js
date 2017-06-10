@@ -19,7 +19,7 @@ var splashSearch = sessionStorage.userChoices.split([","]);
 console.log("Search Terms: " + splashSearch);
 
 // On load, if splashSearch is not empty, search Google Places for those search terms
-var searchObjectNameLocationAndPhotoID = []; 
+var searchObjectNameLocationAndPhotoID = [];
 $(window).on("load", function() {
     if (splashSearch != []) {
         for (var i = 0; i < splashSearch.length; i++) {
@@ -104,13 +104,6 @@ $(window).on("load", function() {
 			    makemarks();
 
 			})
-
-
-
-
-
-
-
         }
     }
 });
@@ -141,28 +134,18 @@ $(window).on("unload", function() {
 });
 
 function generateContent() {
-	$(".results").append("<article class='media'><div class='media-left'><figure class='image is-48x48'><svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='4' fill='#00d1b2'></svg><object type='image/svg+xml' data='assets/images/icons/hiker.svg' class='type-icon'>Your browser does not support SVG</object></figure></div><div class='media-content'><div class='content'><p><strong>Hiking Trailhead</strong> <a class='details-link'><small>More Details</small></a><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p></div></div></article><div class='details'><br><div class='details-content'>HERE ARE THE DETAILS!</div></div><hr>");
+    $(".results").append("<article class='media'><div class='media-left'><figure class='image is-48x48'><svg width='100' height='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='4' fill='#00d1b2'></svg><object type='image/svg+xml' data='assets/images/icons/hiker.svg' class='type-icon'>Your browser does not support SVG</object></figure></div><div class='media-content'><div class='content'><p><strong>Hiking Trailhead</strong> <a class='details-link'><small>More Details</small></a><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</p></div></div></article><div class='details'><br><div class='details-content'>HERE ARE THE DETAILS!</div></div><hr>");
 };
 
 function cleanGenerateContent() {
-<<<<<<< HEAD
-	var circle = $("<circle>").attr({"cx":"50", "cy":"50", "r":"40", "stroke": "black", "stroke-width":"4", "fill": "#00d1b2"});
-	var svg = $("<svg>").attr({"width": "100", "height": "100"}).append(circle);
-	var object = $("<object>").attr({"type":"image/svg+xml", "data":"assets/images/icons/" + "disco-ball" + ".svg", "class":"type-icon"});
-	var figure = $("<figure>").append(svg).append(object);
-	var div1 = $("<div>").addClass("media-left").append(figure);
-	var div2Child = $("<div>").addClass("content").append("<p><strong>" + attachToPin.name + "</strong> <a class='details-link'><small>More Details</small></a><br>" + "description" + "</p>");
-	var div2 = $("<div>").addClass("media-content").append(div2Child);
-	var article = $("<article>").addClass("media").append(div1).append(div2);
-	var detailsDiv = $("<div>").addClass("details").append("<br><div class='details-content'>" + "HERE ARE THE DETAILS!" + "</div>");
-	$(".results").append(article).append(detailsDiv).append("<hr>");
+    var circle = $("<circle>").attr({ "cx": "50", "cy": "50", "r": "40", "stroke": "black", "stroke-width": "4", "fill": "#00d1b2" });
+    var svg = $("<svg>").attr({ "width": "100", "height": "100" }).append(circle);
+    var object = $("<object>").attr({ "type": "image/svg+xml", "data": "assets/images/icons/" + "disco-ball" + ".svg", "class": "type-icon" });
+    var figure = $("<figure>").append(svg).append(object);
+    var div1 = $("<div>").addClass("media-left").append(figure);
+    var div2Child = $("<div>").addClass("content").append("<p><strong>" + attachToPin.name + "</strong> <a class='details-link'><small>More Details</small></a><br>" + "description" + "</p>");
+    var div2 = $("<div>").addClass("media-content").append(div2Child);
+    var article = $("<article>").addClass("media").append(div1).append(div2);
+    var detailsDiv = $("<div>").addClass("details").append("<br><div class='details-content'>" + "HERE ARE THE DETAILS!" + "</div>");
+    $(".results").append(article).append(detailsDiv).append("<hr>");
 }
-=======
-	var circle = $("circle").attr({"cx":"50", "cy":"50", "r":"40", "stroke": "black", "stroke-width":"4", "fill": "#00d1b2"});
-	var svg = $("svg").attr({"width": "100", "height": "100"}).append(circle);
-	var object = $("object").attr({"type":"image/svg+xml", "data":"assets/images/icons/" + "disco-ball" + ".svg", "class":"type-icon"});
-	
-	var newArticle = $("article").addClass("media");
-	var newFigure = $("");
-};
->>>>>>> 8997bcdf18a5a5f70d50919f2f7c2eafe753ca09
