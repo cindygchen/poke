@@ -4,6 +4,7 @@ var searchpin=[];
 var searchlat = 32.8;
 var searchlng = -117.2;
 var markerArray=[];
+var nameArray=[];
 var splashSearch = sessionStorage.userChoices.split([","]);
 console.log("Search Terms: " + splashSearch);
 
@@ -33,7 +34,9 @@ var query = "food";
           });
           if(splashSearch!==[]){
             query = splashSearch;
+            clearMarkers();
             searchcall();
+
             }
         } else {
           // Browser doesn't support Geolocation
@@ -345,6 +348,7 @@ function markerclick(marker){
       this.photo = photo;
     }
 function searchcall(){
+  $(".details-content").empty();
 
   $.ajax({
     url: "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ query +"&location=" + searchlat + "," + searchlng + "&radius=50000&key=AIzaSyBSmftseE9huym0ariNTCamMnQmMZYaDYw&limit=5"
@@ -369,21 +373,33 @@ function searchcall(){
       photoIDArray.push(photoID);
       coordArray.push(coord);
 
+      var addon = $("<div>").addClass(photoID).html(name + "<p>" + lat, lng + "<p><br>");
+      console.log(addon);
+
+      $(".details-content").append(addon)
+      
+
+
+
       var marker = new google.maps.Marker({
         position: {lat, lng},
         map: map,
-        title: name
+        title: name,
+        id: photoID
+
       })
       markerArray.push(marker);
+
+
+  console.log(nameArray)
+  console.log(photoIDArray)
+  console.log(coordArray)
     }
 
   });
 
 
   console.log(this);
-  console.log(nameArray)
-  console.log(photoIDArray)
-  console.log(coordArray)
 
 };
 
