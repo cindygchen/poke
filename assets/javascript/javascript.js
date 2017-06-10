@@ -279,6 +279,7 @@ var query = "food";
       });
 
       $(".main-search-button").on('click', function(){
+        clearMarkers();
         console.log("click");
         query = $(".main-search-field").val();
         console.log(query);
